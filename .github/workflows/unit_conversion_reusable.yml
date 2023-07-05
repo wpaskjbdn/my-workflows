@@ -1,0 +1,23 @@
+name: Django App resuable Workflow
+
+on:
+  workflow_dispatch:
+
+jobs:
+  linting_workflow:
+    name: Python lint
+    uses: RAM797/github-reusable-workflows/.github/workflows/pylint.yml@main
+    with:
+      in: unit_conversion/webapp
+      out: unit_conversion/
+      name: ${{github.run_id}}_lint_results
+
+  S3_upload:
+    needs: linting_workflow
+    name: Result upload to S3
+    uses: RAM797/github-reusable-workflows/.github/workflows/upload_to_S3.yml@main
+    with:
+      result: ${{github.run_id}}_lint_results
+
+
+  

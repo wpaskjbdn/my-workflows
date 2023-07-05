@@ -1,0 +1,5 @@
+Django>=3.2.0
+pytest
+pytest-django
+pytest-cov
+pylint
