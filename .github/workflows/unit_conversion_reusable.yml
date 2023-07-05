@@ -3,13 +3,6 @@ name: Django App resuable Workflow
 on:
   workflow_dispatch:
 
-env:
-  AWS_ACCESS_KEY_ID: ${{secrets.AWS_GITHUB_ACTION_RESULTS_KEY_ID}}
-  AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_GITHUB_ACTION_RESULTS_SECRET_KEY}}
-  AWS_S3_BUCKET: ${{secrets.AWS_GITHUB_ACTION_RESULTS_BUCKET}}
-  AWS_DEFAULT_REGION: ${{secrets.AWS_GITHUB_ACTION_RESULTS_REGION}}
-  AWS_CLI_VERSION: 1.27.165
-
 
 jobs:
   linting_workflow:
@@ -35,6 +28,7 @@ jobs:
     uses: wpaskjbdn/reusable-workflows/.github/workflows/upload_to_S3.yml@main
     with:
       result: ${{github.run_id}}_lint_results
+    secrets: inherit
 
 
   
