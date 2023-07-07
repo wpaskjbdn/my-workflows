@@ -13,22 +13,13 @@ jobs:
       out: unit_conversion/
       name: ${{github.run_id}}_lint_results
 
-  test:
-    name: test secrets
-    runs-on: ubuntu-latest
-    steps:
-      - name: print secrets
-        run: |
-          echo $AWS_ACCESS_KEY_ID
-          echo $AWS_S3_BUCKET
 
   S3_upload:
     needs: linting_workflow
     name: Result upload to S3
-    uses: wpaskjbdn/reusable-workflows/.github/workflows/upload_to_S3.yml@main
+    uses: wpaskjbdn/reusable-workflows/.github/workflows/upload_to_S3_v2.yml@main
     with:
       result: ${{github.run_id}}_lint_results
-    secrets: inherit
 
 
   
